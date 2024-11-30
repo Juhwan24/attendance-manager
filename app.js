@@ -7,19 +7,18 @@ const attendanceRoutes = require('./routes/attendanceRoutes');
 const meetingRoutes = require('./routes/meetingRoutes');
 const userRoutes = require('./routes/userRoutes');
 
-dotenv.config();  
+dotenv.config();
 const app = express();
 
 app.use(cors());
 app.use(express.json()); 
-app.use(express.urlencoded({ extended: true })); // URL 인코딩된 데이터 처리
+app.use(express.urlencoded({ extended: true })); 
 
-app.use(authRoutes);
-app.use(attendanceRoutes);
-app.use(meetingRoutes);
-app.use(userRoutes);
+app.use('/api/auth', authRoutes);          
+app.use('/api/attendance', attendanceRoutes);  
+app.use('/api/meetings', meetingRoutes);  
+app.use('/api/user', userRoutes);         
 
-// 404 Error 처리
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });

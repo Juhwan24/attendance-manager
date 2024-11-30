@@ -6,8 +6,13 @@ const meetingSchema = new mongoose.Schema({
   location: { type: String, required: true },
   meeting_name: { type: String, required: true },
   organizer_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], 
-  total_users: { type: Number, default: 0 }, 
+  attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  total_users: { type: Number, default: 0 },
+});
+
+meetingSchema.pre('save', function(next) {
+  this.total_users = this.attendees.length; 
+  next();
 });
 
 module.exports = mongoose.model('Meeting', meetingSchema);
