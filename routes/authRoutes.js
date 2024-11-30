@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 // 회원가입
-router.post('/api/signup', async (req, res) => {
+router.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const userExists = await User.findOne({ email });
@@ -25,7 +25,7 @@ router.post('/api/signup', async (req, res) => {
 });
 
 // 로그인
-router.post('/api/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });

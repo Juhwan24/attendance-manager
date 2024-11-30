@@ -5,7 +5,7 @@ const UserMeeting = require('../models/userMeetingModel');
 // 모임 생성
 exports.createMeeting = async (req, res) => {
     const { date, time, location, meetingName, organizerId } = req.body;
-    
+    console.log(req.body);
     // 필수 데이터 확인
     if (!date || !time || !location || !meetingName || !organizerId) {
       return res.status(400).json({ message: 'Missing required fields' });
@@ -18,7 +18,8 @@ exports.createMeeting = async (req, res) => {
         time, 
         location, 
         meeting_name: meetingName, 
-        organizer_id: organizerId 
+        organizer_id: organizerId, 
+        attendees
       });
       await newMeeting.save();
   

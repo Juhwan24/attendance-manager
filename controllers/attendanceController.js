@@ -7,13 +7,10 @@ exports.markAttendance = async (req, res) => {
   const { userId, meetingId } = req.body;
 
   try {
-    // 출석 기록이 이미 있는지 확인
     const existingAttendance = await UserMeeting.findOne({ user_id: userId, meeting_id: meetingId });
     if (existingAttendance) {
       return res.status(400).json({ message: 'Attendance already marked' });
     }
-
-    // 새로운 출석 기록 생성
     const newAttendance = new UserMeeting({ user_id: userId, meeting_id: meetingId, status: 1 });
     await newAttendance.save();
     res.status(200).json({ message: 'Attendance marked successfully' });
@@ -22,7 +19,6 @@ exports.markAttendance = async (req, res) => {
   }
 };
 
-// 출석 현황 조회
 exports.getAttendanceStatus = async (req, res) => {
   const { meetingId } = req.params;
   try {
