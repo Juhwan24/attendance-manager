@@ -1,8 +1,8 @@
-// 사용자 관련 API 라우터
 const express = require('express');
 const router = express.Router();
-const User = require('../models/userModel');
+const userController = require('../controllers/userController');
 
+<<<<<<< Updated upstream
 // 사용자 정보 조회
 router.get('/api/user/:id', async (req, res) => {
   const { id } = req.params;
@@ -16,5 +16,8 @@ router.get('/api/user/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+=======
+router.get('/:id', userController.getUser);
+>>>>>>> Stashed changes
 
 module.exports = router;

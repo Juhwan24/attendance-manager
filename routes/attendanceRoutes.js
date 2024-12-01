@@ -1,9 +1,9 @@
 // 출석 체크 및 현황 조회 API 라우터
 const express = require('express');
 const router = express.Router();
-const Meeting = require('../models/meetingModel');
-const UserMeeting = require('../models/userMeetingModel');
+const attendanceController = require('../controllers/attendanceController');
 
+<<<<<<< Updated upstream
 // 출석 체크
 router.post('/api/attendance/check', async (req, res) => {
   const { userId, meetingId } = req.body;
@@ -31,5 +31,9 @@ router.get('/api/attendance/status/:meetingId', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+=======
+router.post('/check', attendanceController.markAttendance);
+router.get('/status/:meetingId', attendanceController.getAttendanceStatus);
+>>>>>>> Stashed changes
 
 module.exports = router;
