@@ -1,4 +1,3 @@
-// 로그인, 회원가입 처리
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
@@ -20,7 +19,8 @@ exports.signup = async (req, res) => {
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error during signup:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
@@ -42,6 +42,7 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
     res.status(200).json({ token, userId: user._id });
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error during login:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
