@@ -6,4 +6,5 @@ const attendanceController = require('../controllers/attendanceController');
 router.post('/check', attendanceController.markAttendance);
 router.get('/status/:meetingId', attendanceController.getAttendanceStatus);
 
+
 module.exports = router;

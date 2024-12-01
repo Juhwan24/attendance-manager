@@ -4,18 +4,19 @@ const User = require('../models/userModel');
 // 모임 생성
 exports.createMeeting = async (req, res) => {
   const { date, time, location, meetingName, organizerId, attendees } = req.body;
-
+  // 필수 데이터 확인
   if (!date || !time || !location || !meetingName || !organizerId) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
 
   try {
+
     // 참석자 검증
     const validAttendees = await User.find({ _id: { $in: attendees || [] } }).select('_id');
     if (validAttendees.length !== attendees.length) {
       return res.status(400).json({ message: 'Some attendees are invalid' });
     }
-
+    // Meeting 객체 생성
     const newMeeting = new Meeting({
       date,
       time,
@@ -25,6 +26,7 @@ exports.createMeeting = async (req, res) => {
       attendees: validAttendees.map((user) => user._id),
       total_users: validAttendees.length,
     });
+
 
     await newMeeting.save();
     res.status(201).json({ message: 'Meeting created successfully', meeting: newMeeting });
@@ -46,6 +48,7 @@ exports.updateMeeting = async (req, res) => {
       { new: true }
     );
 
+
     if (!updatedMeeting) {
       return res.status(404).json({ message: 'Meeting not found' });
     }
@@ -66,7 +69,6 @@ exports.deleteMeeting = async (req, res) => {
     if (!deletedMeeting) {
       return res.status(404).json({ message: 'Meeting not found' });
     }
-
     res.status(200).json({ message: 'Meeting deleted successfully' });
   } catch (error) {
     console.error('Error deleting meeting:', error);
