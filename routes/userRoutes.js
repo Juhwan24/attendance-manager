@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('../models/userModel');
 
 // 사용자 정보 조회
-router.get('/api/user/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id);

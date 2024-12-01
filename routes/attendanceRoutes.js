@@ -5,7 +5,7 @@ const Meeting = require('../models/meetingModel');
 const UserMeeting = require('../models/userMeetingModel');
 
 // 출석 체크
-router.post('/api/attendance/check', async (req, res) => {
+router.post('/check', async (req, res) => {
   const { userId, meetingId } = req.body;
   try {
     const attendance = await UserMeeting.findOne({ user_id: userId, meeting_id: meetingId });
@@ -22,7 +22,7 @@ router.post('/api/attendance/check', async (req, res) => {
 });
 
 // 모임 출석 현황 조회
-router.get('/api/attendance/status/:meetingId', async (req, res) => {
+router.get('/status/:meetingId', async (req, res) => {
   const { meetingId } = req.params;
   try {
     const attendanceStatus = await UserMeeting.find({ meeting_id: meetingId });
