@@ -6,6 +6,8 @@ const authRoutes = require('./routes/authRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const meetingRoutes = require('./routes/meetingRoutes');
 const userRoutes = require('./routes/userRoutes');
+const memberAttendanceRoutes = require('./attendance/user/{user_id}');
+
 
 dotenv.config();
 const app = express();
@@ -17,7 +19,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', authRoutes);          
 app.use('/api/attendance', attendanceRoutes);  
 app.use('/api/meetings', meetingRoutes);  
-app.use('/api/user', userRoutes);         
+app.use('/api/user', userRoutes); 
+app.use('/api/memberAttendanceRoutes', memberAttendanceRoutes);         
+     
 
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
