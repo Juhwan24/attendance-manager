@@ -6,7 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const meetingRoutes = require('./routes/meetingRoutes');
 const userRoutes = require('./routes/userRoutes');
-const memberAttendanceRoutes = require('./attendance/user/{user_id}');
+const getUserAttendance = require('./routes/getUserAttendance');
 
 
 dotenv.config();
@@ -20,7 +20,7 @@ app.use('/api', authRoutes);
 app.use('/api/attendance', attendanceRoutes);  
 app.use('/api/meetings', meetingRoutes);  
 app.use('/api/user', userRoutes); 
-app.use('/api/memberAttendanceRoutes', memberAttendanceRoutes);         
+app.use('/api/attendance/user', getUserAttendance);
      
 
 app.use((req, res, next) => {
